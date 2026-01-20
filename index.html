@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../valentine/css/valent.css">
+    <img src="../valentine/imges/ppp.jpg" class="couple">
+    <audio id="music" src="../valentine/olo.mp3"></audio>
+    <title>Happy 5 Months ❤️</title>
+</head>
+<body>
+   <!-- หัวใจลอย -->
+    <div class="hearts"></div>
+
+    <!-- ข้อความเด้ง -->
+    <div id="monthText">Happy 5 Months, Fern ❤️</div>
+
+    <!-- การ์ดหน้า 1 -->
+    <div class="card active">
+        <img src="../valentine/imges/ppp.jpg" class="couple">
+        <h1>Happy 5 Months ❤️</h1>
+        <p>
+            ถึง <span class="name">เฟิร์น</span><br>
+            เค้ามีบางอย่างอยากบอก
+        </p>
+        <button onclick="nextCard()">ถัดไป ➜</button>
+    </div>
+
+    <!-- การ์ดหน้า 2 -->
+    <div class="card">
+        <h1>ขอบคุณนะ 💌</h1>
+        <p>
+            ขอบคุณที่อยู่ข้างกัน  
+            ในทุกช่วงเวลา
+        </p>
+        <button onclick="nextCard()">ถัดไป ➜</button>
+    </div>
+
+    <!-- การ์ดหน้า 3 (จดหมาย) -->
+    <div class="card">
+        <img src="../valentine/imges/ppp.jpg" class="couple zoom">
+        <h1>ครบรอบ 5 เดือน ❤️</h1>
+        <p class="letter">
+            เฟิร์นรู้ไหม  
+            ตั้งแต่วันที่เราจับมือกัน  
+            โลกของเค้าก็อบอุ่นขึ้นมากจริงๆ  
+
+            5 เดือนที่ผ่านมา  
+            อาจไม่ได้สมบูรณ์แบบทุกวัน  
+            แต่ทุกวันมี “เฟิร์น” อยู่ในนั้นเสมอ  
+
+            ขอบคุณที่อยู่ข้างๆ กัน  
+            ในวันที่ยิ้ม  
+            และแม้แต่ในวันที่เหนื่อย  
+
+            ขอบคุณที่เป็นรอยยิ้ม  
+            เป็นความสบายใจ  
+            และเป็นเหตุผลที่ทำให้เค้าอยากพยายามในทุกๆ วัน  
+
+            ถ้ามีเฟิร์นเดินไปด้วยกัน  
+            เค้าเชื่อว่าอนาคตต้องเป็นสิ่งที่ดีแน่นอน 🤍  
+
+            Happy 5 Months นะเฟิร์น  
+            เค้ารักเฟิร์นมากกว่าที่คำพูดจะอธิบายได้เลย ❤️
+        </p>
+        <button onclick="boom()">Happy 5 Months ❤️</button>
+    </div>
+
+    <!-- เพลง -->
+    <audio id="music" src="../valentine/olo.mp3" loop></audio>
+
+<script>
+/* การ์ดหลายหน้า */
+const cards = document.querySelectorAll(".card");
+let current = 0;
+
+function nextCard() {
+    cards[current].classList.remove("active");
+    current++;
+    if (current < cards.length) {
+        cards[current].classList.add("active");
+    }
+}
+
+/* ปุ่มสุดท้าย */
+function boom() {
+    document.getElementById("music").play();
+    explodeHeart();
+    shakeScreen();
+    showMonth();
+
+    if (navigator.vibrate) {
+        navigator.vibrate([80, 40, 80]);
+    }
+}
+
+/* ข้อความเด้ง */
+function showMonth() {
+    const text = document.getElementById("monthText");
+    text.classList.remove("show-month");
+    void text.offsetWidth;
+    text.classList.add("show-month");
+}
+
+/* ❤️ หัวใจลอย */
+const hearts = document.querySelector(".hearts");
+setInterval(() => {
+    const heart = document.createElement("span");
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 20 + 20 + "px";
+    heart.style.animationDuration = Math.random() * 3 + 4 + "s";
+    hearts.appendChild(heart);
+    setTimeout(() => heart.remove(), 7000);
+}, 300);
+
+/* 💥 พลุรูปหัวใจ */
+function explodeHeart() {
+    const cx = window.innerWidth / 2;
+    const cy = window.innerHeight / 2;
+
+    for (let t = 0; t < Math.PI * 2; t += 0.15) {
+        const x = 16 * Math.pow(Math.sin(t), 3);
+        const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+
+        const spark = document.createElement("div");
+        spark.className = "spark";
+        spark.innerHTML = "💖";
+        spark.style.left = cx + "px";
+        spark.style.top = cy + "px";
+        spark.style.setProperty("--x", x * 15 + "px");
+        spark.style.setProperty("--y", y * 15 + "px");
+
+        document.body.appendChild(spark);
+        setTimeout(() => spark.remove(), 1500);
+    }
+}
+
+/* 📳 สั่นจอ */
+function shakeScreen() {
+    document.body.classList.add("shake");
+    setTimeout(() => {
+        document.body.classList.remove("shake");
+    }, 500);
+}
+</script>
+
+</body>
+</html>
